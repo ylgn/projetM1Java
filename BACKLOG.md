@@ -86,7 +86,7 @@ Je veux donner une liste de données, un fichier décrivant le fichier de donné
 | F220 |  FP2 | Lire un fichier .json décrivant les colonnes le fichier.csv | Vérifier que la lecture est effective et intégrale. Vérifier qu'il est bien possible d'instancier les objets|---|
 | F230 |  FP2 | Lire un fichier .json donnant la base de règles d'anonymisation| Vérifier que la lecture est effective et intégrale. Vérifier qu'il est bien possible d'instancier les objets|Avoir des règles d'anonymisation en plus dans la bases des règles.|
 | F240 |  FP2 | Donner un nom au fichier.csv d'output|Inutile de tester cette feature à moins que l'on décide de normaliser les output. (Le risque est identifié)|---|
-| F250 |  FP1 | Écrire les données dont la colonnes est contenue exclusivement dans 3|Vérifier que le système est capable de comparer des datatype. |---|
+| F250 |  FP2 | Écrire les données dont la colonnes est contenue exclusivement dans 3|Vérifier que le système est capable de comparer des datatype. |---|
 
 ## Roadmap projet
 1. Création du backlog (Cahier des charges) --> 23/12/2019
