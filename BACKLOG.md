@@ -34,17 +34,15 @@ Le projet doit pouvoir être éxecuté de deux manière différentes, l'une pour
 
 ### Base de données
 
-*	rules_verification.json
-*	rules_anonymisation.json
+*	anon.json
+*	check.json
+*	desc.json
 
 ### Document de référence
 
 [Énoncé](https://github.com/emerite-neou/2019-DAUPHINE-M1/blob/master/projet/sujet.md)
 
-## Aspects métiers
-### Nombre d’utilisateurs
-
-Non étudié. Le projet pourrait, dans le cadre de fonctionalité bonus, être amené migrer sur une architecture client/Serveur. Il faudra donc étudier sa montée en charge.
+## Aspects fonctionnels
 
 ### Service Level Agreement
 
@@ -70,32 +68,40 @@ Je veux donner une liste de données, un fichier décrivant le fichier de donné
 « En tant que Bob,
 Je veux donner une liste de données, un fichier décrivant le fichier de données, un fichier contenant les règles d'anonymisation. Afin de pouvoir obtenir des données 100% vérifiées dans un fichier dont le nom est donné préalablement par BOB.»
 
-## Fonctionnalités détaillées
+## Développement de l'application
+Pour des raisons d'optimisation de ressources et compte-tenu de la taille du projet, nous avons orienté nos features sur des aspects techniques et non fonctionnels. 
 
-### Features & fonctionnalités associées 
-| Feature | Perimètre|Fonctionnalité |Test associé | Évolutions à faire|
-|:--------:|:----|:------------|:-------------|:-------------------------|
-| F110 |  FP1 | Lire un fichier .csv  | Vérifier que la lecture est effective et intégrale.|Lire d'autres formats de données. Lire des fichiers csv avec des séparateurs autres que la virgule, et sur plusieurs caracteres. Lire des fichiers au format flatfile.Lire des fichiers ou une ligne ne correspond pas forcément à une entrée (entrée sur plusieurs ligne ou une ligne contient plusieurs entrée).|
-| F120 |  FP1 | Lire un fichier .json décrivant les colonnes le fichier.csv | Vérifier que la lecture est effective et intégrale. Vérifier qu'il est bien possible d'instancier les objets|---|
-| F130 |  FP1 | Lire un fichier .json donnant la base de règles de vérification| Vérifier que la lecture est effective et intégrale. Vérifier qu'il est bien possible d'instancier les objets|Avoir des règles de vérification en plus dans la bases des règles.|
-| F140 |  FP1 | Donner un nom au fichier.csv d'output|Inutile de tester cette feature à moins que l'on décide de normaliser les output. (Le risque est identifié)|---|
-| F150 |  FP1 | Vérifier automatiquement que les données dans F110 sont bien au format demandé par F120 |Vérifier que le système est capable de comparer des datatype. |---|
-| F160 |  FP1 | Vérifier que les données dans F110 respectent les règles données par F130 |Vérifier que le système est capable de lire une règle. |---|
-| F170 |  FP1 | Écrire les données vérifiée à 100% dans un fichier dont le nom est donné par F140 |Vérifier que le système peut écrire des données de manières intégrale | Écrire d'autres formats de données. Écrire des fichiers csv avec des séparateurs autres que la virgule, et sur plusieurs caracteres. É	crire des fichiers au format flatfile. Écire des fichiers ou une ligne ne correspond pas forcément à une entrée (entrée sur plusieurs ligne ou une ligne contient plusieurs entrée).|
-| F210 |  FP2 | Lire un fichier .csv  | Vérifier que la lecture est effective et intégrale.|Lire d'autres formats de données. Lire des fichiers csv avec des séparateurs autres que la virgule, et sur plusieurs caracteres. Lire des fichiers au format flatfile.Lire des fichiers ou une ligne ne correspond pas forcément à une entrée (entrée sur plusieurs ligne ou une ligne contient plusieurs entrée).|
-| F220 |  FP2 | Lire un fichier .json décrivant les colonnes le fichier.csv | Vérifier que la lecture est effective et intégrale. Vérifier qu'il est bien possible d'instancier les objets|---|
-| F230 |  FP2 | Lire un fichier .json donnant la base de règles d'anonymisation| Vérifier que la lecture est effective et intégrale. Vérifier qu'il est bien possible d'instancier les objets|Avoir des règles d'anonymisation en plus dans la bases des règles.|
-| F240 |  FP2 | Donner un nom au fichier.csv d'output|Inutile de tester cette feature à moins que l'on décide de normaliser les output. (Le risque est identifié)|---|
-| F250 |  FP2 | Écrire les données dont la colonnes est contenue exclusivement dans 3|Vérifier que le système est capable de comparer des datatype. |---|
+### Features & package associés 
+| Feature | Description |Package |Classes|
+|:--------:|:------------|:------------|:-------------|
+| F_00 | Squellete de l'application (Protoypage)| anonymisation,IO-handling-utils, Launcher, mappers, meta-data, readers (cfg & csv), verification,writers | All (Protoypage)|
+| F_10 | Fournir des outils nécessaires aux oppérations de lecture / écriture (parse)| IO-handling-utils| JsonExtractor, & StringUtils |
+| F_20 | Fournir des outils d'écriture dans différents formats de façon indiférente à notre application |writers| Writer, WriterCSV & WriterFactory|
+| F_30 | Fournir des outils de lecture dans différents formats de façon (CSV, JSON, ...) |readers.cfg_reader & readers.document_reader| CfgReader, CfgReaderFactory & JsonReader, CsvReader, DocumentReader, DocumentReaderFactory|
+| F_40 | Modéliser une structure de données en tableur et lui associer les fonctionnalité FP1 et FP2 |meta_data & mappers|Column, LineMetaData, AnonymisationRuleMapper, DesTypeMapper, VerificationRUleMapper|
+| F_50 | Coder la fonctionnalité FP1 : la vérification|verification |AllVerificationsRules, Verification|
+| F_60 | Coder la fonctionnalité FP2 : l'anonymisation|verification |AllANonymisationRules, Anonymisation|
+
 
 ## Roadmap projet
-1. Création du backlog (Cahier des charges) --> 23/12/2019
-2. Création du DAT (Document d'architecture technique) --> 31/12/2019
-	* Études techniques des évolutions.
-	* Choix des exceptions.
-	* Choix des logs.
-	* Diagramme de classe (Étude des design patterns inclue).
-3. Kick-off --> 31/12/2019
-4. Livraison lot 1 -->
-5. Livraison lot 2 -->
-4. Rendu -->
+1. **Push du backlog** (Cahier des charges) --> 22/02/2020
+2. **Kick-off** --> 22/02/2020 :
+	1. Livraison F_00 --> 22/02/2020
+	2. Livraison F_10 --> 23/02/2020
+	3. Livraison F_20 --> 24/02/2020
+	4. Livraison F_30 --> 25/02/2020
+	5. Livraison F_40 --> 26/02/2020
+	6. Livraison F_50 --> 27/02/2020
+	7. Livraison F_60 --> 28/02/2020
+3. **Fonctionnalité bonus** :
+	* Traçabilité (Log 4j)
+	* Features F_70 --> 04/02/2020    
+4. **Rendu** --> 05/03/2020
+5. **Rapport** --> 08/03/2020
+
+**NB1** : Cette roadmap correspond aux demandes obligatoires du projet. Il se peut que des fonctionnalités bonus soient ajoutées. Ainsi, si bonne conduite de projet il y a
+
+**NB2** : Un projet scolaire est toujours une vitrine pour notre avenir professionnel. Bien que non demandé par le professeur et donc hors-scope voici quelques fonctionnalités que nous ajouterons s'il reste du temps :
+
+* IHM
+* Lien avec le cours de Systemes Repartis --> Fonctionnalités à distance.
