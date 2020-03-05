@@ -1,9 +1,11 @@
 package readers.document_reader;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import Launcher.MainPg;
 
 /**
  * 
@@ -20,7 +22,7 @@ class CsvReader extends DocumentReader {
 	int iter = 1;
 	String separator;
 
-	public CsvReader(String pathToCsv, String Separator) throws Exception {
+	public CsvReader(String pathToCsv, String Separator) {
 		this.path = pathToCsv;
 		this.separator = Separator;
 
@@ -32,19 +34,28 @@ class CsvReader extends DocumentReader {
 	 * @return An ArrayList of String [] with all the data kept in it.
 	 * @throws IOException
 	 */
-	public ArrayList<String[]> readAllFile() throws IOException {
-		csvReader = new BufferedReader(new FileReader(this.path));
-		ArrayList<String[]> allData = new ArrayList<String[]>();
-		;
-		String row;
-		while ((row = csvReader.readLine()) != null) {
-			String[] data = row.split(",");
-			allData.add(data);
+	public ArrayList<String[]> readAllFile() {
+		try {
+			csvReader = new BufferedReader(new FileReader(this.path));
+			ArrayList<String[]> allData = new ArrayList<String[]>();
+			;
+			String row;
+			while ((row = csvReader.readLine()) != null) {
+				String[] data = row.split(",");
+				allData.add(data);
+				csvReader.close();
+				
+				return allData;
+		}} catch (IOException e) {
+			// TODO Auto-generated catch block
+			MainPg.logger.error("Error invalid path for csv ");
+			e.printStackTrace();
 		}
-		csvReader.close();
-		return allData;
-
-	}
+		return null;
+	
+		}
+		
+	
 
 	/**
 	 * Return n into a given file
@@ -56,7 +67,7 @@ class CsvReader extends DocumentReader {
 	public ArrayList<String[]> readMultipleLine(int nb) throws IOException {
 		csvReader = new BufferedReader(new FileReader(this.path));
 		ArrayList<String[]> allData = new ArrayList<String[]>();
-		System.out.println("Write chunk nb :" + this.iter);
+		//System.out.println("Read chunk nb :" + this.iter);
 
 		String row;
 		int cpt = 1;
@@ -71,6 +82,7 @@ class CsvReader extends DocumentReader {
 			this.containsData = false;
 		}
 		iter++;
+		MainPg.logger.info("Succsefully CSV read chunk nb "+this.iter);
 		csvReader.close();
 		return allData;
 	}

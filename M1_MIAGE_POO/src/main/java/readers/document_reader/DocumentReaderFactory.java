@@ -21,7 +21,8 @@ public class DocumentReaderFactory {
 	 * @param String giving the path where to read the document.
 	 * @return a writer object
 	 */
-	public static DocumentReader getDocumentReader(String type, String path) throws Exception {
+	public static DocumentReader getDocumentReader(String type, String path) throws IllegalArgumentException
+ {
 		if (type == null) {
 			return null;
 		}
@@ -29,7 +30,7 @@ public class DocumentReaderFactory {
 		case "CSV":
 			return new CsvReader(path, MainPg.InSeparator);
 		default:
-			return null;
+			throw new IllegalArgumentException("Reader format doesn't exists");
 		}
 
 	}

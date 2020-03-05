@@ -28,7 +28,7 @@ public class WriterFactory {
 		case "CSV":
 			return new CsvWriter(path,MainPg.InSeparator);
 		default :
-			return null;
+			throw new IllegalArgumentException("Writer format doesn't exists");
 		}
 	}
 	

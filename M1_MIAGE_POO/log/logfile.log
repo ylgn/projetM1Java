@@ -1,0 +1,8 @@
+2020-03-05 11:49:40,370  INFO [main] - Launcher.MainPg.main 19 - test
+2020-03-05 11:49:40,386  INFO [main] - Launcher.MainPg.initElement 52 - Cfg  JsonCfg//desc.json successfully imported
+2020-03-05 11:49:40,387  INFO [main] - Launcher.MainPg.initElement 52 - Cfg  JsonCfg//anon.json successfully imported
+2020-03-05 11:49:40,389  INFO [main] - Launcher.MainPg.readMultipleLine 85 - Succsefully CSV read chunk nb 2
+2020-03-05 11:49:40,399  INFO [main] - Launcher.MainPg.readMultipleLine 85 - Succsefully CSV read chunk nb 3
+2020-03-05 11:49:40,400  INFO [main] - Launcher.MainPg.readMultipleLine 85 - Succsefully CSV read chunk nb 4
+2020-03-05 11:49:40,401  INFO [main] - Launcher.MainPg.readMultipleLine 85 - Succsefully CSV read chunk nb 5
+2020-03-05 11:49:40,410  INFO [main] - Launcher.MainPg.doAnonymisation 70 - Annonymisation for file :testCSv.csvFinished succesfully , out path :testCSv2.csv

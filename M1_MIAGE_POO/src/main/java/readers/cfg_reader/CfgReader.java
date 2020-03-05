@@ -24,7 +24,6 @@ public abstract class CfgReader {
 	 * 
 	 * @param Int giving the number of records to read
 	 * @return An ArrayList of String [] with all the data kept in it.
-	 * @throws IOException, ParseException
 	 */
 	public abstract void initElement() throws IOException, ParseException;
 
@@ -32,26 +31,23 @@ public abstract class CfgReader {
 	 * Return a line with the data type of each column.
 	 * 
 	 * @return LineMetaData with rules
-	 * @throws IOException, ParseException
 	 */
-	public abstract LineMetaData initMetaData() throws IOException, ParseException;
+	public abstract LineMetaData initMetaData();
 
 	/**
 	 * Return a line with the verification rule of each column. Each column of the
 	 * line is initialised with its own rule.
 	 * 
 	 * @return LineMetaData completed with verification rule
-	 * @throws IOException, ParseException
 	 */
-	public abstract LineMetaData initRuleMetaData(LineMetaData ref) throws IOException, ParseException;
+	public abstract LineMetaData initRuleMetaData(LineMetaData ref) ;
 
 	/**
 	 * Return a line with the anonymisation rule of each column. Each column of the
 	 * line is initialised with its own rule.
 	 * 
 	 * @return LineMetaData completed with anonymisation rule
-	 * @throws IOException, ParseException
 	 */
-	public abstract LineMetaData initAnonymisationMetaData(LineMetaData ref) throws IOException, ParseException;
+	public abstract LineMetaData initAnonymisationMetaData(LineMetaData ref) ;
 
 }

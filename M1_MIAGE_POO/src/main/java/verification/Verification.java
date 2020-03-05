@@ -3,6 +3,7 @@ package verification;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import Launcher.MainPg;
 import mappers.DescTypeMapper;
 import mappers.VerificationRuleMapper;
@@ -58,5 +59,6 @@ public class Verification {
 			})).collect(Collectors.toList());
 			csvWriter.writeFileFromList(beforWrite);
 		}
+		System.out.println("Anonymisation succesful ");
 	}
 }

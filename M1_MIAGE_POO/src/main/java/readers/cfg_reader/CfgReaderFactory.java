@@ -22,7 +22,7 @@ public class CfgReaderFactory {
 		case "JSON":
 			return new JsonReader(path);
 		default:
-			return null;
+			throw new IllegalArgumentException("CFG Reader format doesn't exists");
 		}
 
 	}

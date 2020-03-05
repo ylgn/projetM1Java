@@ -9,6 +9,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import IO_handling_utils.JsonExtractors;
+import Launcher.MainPg;
 import meta_data.Column;
 import meta_data.LineMetaData;
 
@@ -31,7 +32,8 @@ class JsonReader extends CfgReader {
 			this.fileReader = new FileReader(this.path);
 			this.initElement();
 		} catch (Exception e) {
-			System.out.println("Please select correct file path");
+			System.out.println("Please select correct file path for cfg file");
+			MainPg.logger.error("Json cfg path invalid");
 			e.printStackTrace();
 		}
 
@@ -47,6 +49,7 @@ class JsonReader extends CfgReader {
 	 */
 	public void initElement() throws IOException, ParseException {
 		this.jsonElemnts = (ArrayList<JSONObject>) jsonParser.parse(fileReader);
+		MainPg.logger.info("Cfg  "+this.path+" successfully imported");
 	}
 
 	/**
@@ -54,9 +57,8 @@ class JsonReader extends CfgReader {
 	 * given ArrayList<JSONObject>.
 	 * 
 	 * @return LineMetaData with rules
-	 * @throws IOException, ParseException
 	 */
-	public LineMetaData initMetaData() throws IOException, ParseException {
+	public LineMetaData initMetaData()  {
 		LineMetaData ref = new LineMetaData();
 		for (int i = 0; i < this.jsonElemnts.size(); i++) {
 			JSONObject jsonObject = this.jsonElemnts.get(i);
@@ -71,9 +73,8 @@ class JsonReader extends CfgReader {
 	 * with its own rule bounded to the JSONObject.
 	 * 
 	 * @return LineMetaData completed with verification rule
-	 * @throws IOException, ParseException
 	 */
-	public LineMetaData initRuleMetaData(LineMetaData ref) throws IOException, ParseException {
+	public LineMetaData initRuleMetaData(LineMetaData ref)  {
 		String colName;
 		JSONObject jsonObject;
 		Column metaDataColumn;
@@ -83,6 +84,7 @@ class JsonReader extends CfgReader {
 			metaDataColumn = ref.getColByName(colName);
 			JsonExtractors.parseRuleObject(metaDataColumn, jsonObject, "should");
 		}
+		MainPg.logger.info("");
 		return ref;
 	}
 
@@ -92,9 +94,8 @@ class JsonReader extends CfgReader {
 	 * with its own rule bounded to the JSONObject.
 	 * 
 	 * @return LineMetaData completed with anonymisation rule
-	 * @throws IOException, ParseException
 	 */
-	public LineMetaData initAnonymisationMetaData(LineMetaData ref) throws IOException, ParseException {
+	public LineMetaData initAnonymisationMetaData(LineMetaData ref)  {
 		String colName;
 		JSONObject jsonObject;
 		Column metaDataColumn;

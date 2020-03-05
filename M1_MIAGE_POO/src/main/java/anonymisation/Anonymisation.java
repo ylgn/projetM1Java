@@ -1,5 +1,6 @@
 package anonymisation;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,36 +43,38 @@ public class Anonymisation {
 	 * 
 	 * @exception Exception
 	 */
-	public void doAnonymisation() throws Exception {
+	public void doAnonymisation()  {
 		DocumentReader csvReader = DocumentReaderFactory.getDocumentReader("CSV", this.in);
-		Writer csvWriter = WriterFactory.getDocumentWriter("CSV", out);
-		CfgReader descReader = CfgReaderFactory.getCfgReader("JSON", descFilePath);
-		CfgReader anonRuleReader = CfgReaderFactory.getCfgReader("JSON", anonFilePath);
+		Writer csvWriter;
+		try {
+			csvWriter = WriterFactory.getDocumentWriter("CSV", out);
+			CfgReader descReader = CfgReaderFactory.getCfgReader("JSON", descFilePath);
+			CfgReader anonRuleReader = CfgReaderFactory.getCfgReader("JSON", anonFilePath);
 
-		LineMetaData lineInit = descReader.initMetaData();
+			LineMetaData lineInit = descReader.initMetaData();
 
-		LineMetaData lineRef = anonRuleReader.initAnonymisationMetaData(lineInit);
+			LineMetaData lineRef = anonRuleReader.initAnonymisationMetaData(lineInit);
 
-		while (csvReader.checkContainingData() == true) {
-			ArrayList<String[]> tempLine = csvReader.readMultipleLine(MainPg.blockSize);
+			while (csvReader.checkContainingData() == true) {
+				ArrayList<String[]> tempLine = csvReader.readMultipleLine(MainPg.blockSize);
 
-			List<String[]> beforWrite = tempLine.stream().filter((e) -> {
-				return DescTypeMapper.verificationMatchWithDesc(lineRef, e);
-			}).map((e) -> {
-				return AnonymisationRuleMapper.lineAnonymisation(lineRef, e);
-			}).collect(Collectors.toList());
+				List<String[]> beforWrite = tempLine.stream().filter((e) -> {
+					return DescTypeMapper.verificationMatchWithDesc(lineRef, e);
+				}).map((e) -> {
+					return AnonymisationRuleMapper.lineAnonymisation(lineRef, e);
+				}).collect(Collectors.toList());
 
-			// beforWrite.stream().map((e)-> {
-			// return AnonymisationRuleMapper.lineAnonymisation(lineRef,e);
-			// }).collect(Collectors.toList());
-
-			/* old version */
-			// for(int i=0;i<beforWrite.size();i++) {
-			// beforWrite.set(i,
-			// AnonymisationRuleMapper.lineAnonymisation(lineRef,beforWrite.get(i)));
-			// }
-			csvWriter.writeFileFromList(beforWrite);
+				csvWriter.writeFileFromList(beforWrite);
+			
+			}
+			MainPg.logger.info("Annonymisation for file :"
+			+ this.in+ "Finished succesfully , out path :"+out);
+			System.out.println("Anonymisation succesful ");
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			MainPg.logger.error("Annonymisation failed");
+			e.printStackTrace();
 		}
-
-	}
-}
+		
+}}
