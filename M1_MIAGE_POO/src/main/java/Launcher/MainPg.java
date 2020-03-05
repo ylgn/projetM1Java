@@ -2,7 +2,6 @@ package Launcher;
 
 import anonymisation.Anonymisation;
 import verification.Verification;
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
